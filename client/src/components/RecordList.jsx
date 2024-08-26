@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import QRCodeModal from "./QRCodeModal";
 
 const Record = (props) => (
   <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
@@ -30,6 +31,15 @@ const Record = (props) => (
         >
           Delete
         </button>
+        <button
+          className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 hover:text-accent-foreground h-9 rounded-md px-3"
+          type="button"
+          onClick={() => {
+            props.onShowQRModal(props.record._id);
+          }}
+        >
+          QR
+        </button>
       </div>
     </td>
   </tr>
@@ -37,6 +47,8 @@ const Record = (props) => (
 
 export default function RecordList() {
   const [records, setRecords] = useState([]);
+  const [showQRModal, setShowQRModal] = useState(false); //estado para mostrar o cerrar el modal
+  const [qrValue, setQRValue] = useState(""); //estado para el valor del codigo QR
 
   // This method fetches the records from the database.
   useEffect(() => {
@@ -63,6 +75,18 @@ export default function RecordList() {
     setRecords(newRecords);
   }
 
+  //funcion para mostrar el modal de QR
+  function handleShowQRModal(id) {
+    setQRValue(id);
+    setShowQRModal(true);
+  }
+
+  //funcion para cerrar el modal de QR
+  function handleCloseQRModal() {
+    setShowQRModal(false);
+    setQRValue("");
+  }
+
   // This method will map out the records on the table
   function recordList() {
     return records.map((record) => {
@@ -70,6 +94,7 @@ export default function RecordList() {
         <Record
           record={record}
           deleteRecord={() => deleteRecord(record._id)}
+          onShowQRModal={handleShowQRModal}
           key={record._id}
         />
       );
@@ -99,12 +124,11 @@ export default function RecordList() {
                 </th>
               </tr>
             </thead>
-            <tbody className="[&_tr:last-child]:border-0">
-              {recordList()}
-            </tbody>
+            <tbody className="[&_tr:last-child]:border-0">{recordList()}</tbody>
           </table>
         </div>
       </div>
+      <QRCodeModal value={qrValue} onClose={handleCloseQRModal} />
     </>
   );
 }
