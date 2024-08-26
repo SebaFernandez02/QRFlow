@@ -17,4 +17,7 @@ Ejecutar server:
 cd server
 node --env-file=config.env server
 ```
-
+si falla la ejecucion del server:
+```
+npm install express
+```
