@@ -1,5 +1,5 @@
 # QRFlow 
-##Grupo 10
+## Grupo 10
 
 ## Estructura del proyecto
 - client es la aplicación frontend en react
