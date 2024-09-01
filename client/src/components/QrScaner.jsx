@@ -3,39 +3,95 @@ import { Html5QrcodeScanner } from "html5-qrcode";
 
 export default function Scanner() {
   const [result, setResult] = useState("");
+  const [scanner, setScanner] = useState(null);
+  const [isScanning, setIsScanning] = useState(false);
 
   useEffect(() => {
-    const onScanSuccess = (decodedText, decodedResult) => {
-      // Manejo del resultado exitoso del escaneo
-      setResult(decodedText);
-      console.log(`Code matched = ${decodedText}`, decodedResult);
-      scanner.clear(); // Limpiar el escáner después de obtener un resultado
-    };
-
-    const onScanFailure = (error) => {
-      // Manejo de errores de escaneo
-      console.warn(`Code scan error = ${error}`);
-    };
-
-    const scanner = new Html5QrcodeScanner(
-      "scanner", 
-      { fps: 10, qrbox: { width: 250, height: 250 } }, 
-      false
-    );
-
-    scanner.render(onScanSuccess, onScanFailure);
-
-    // Limpiar el escáner cuando el componente se desmonte
+    // Al desmontar el componente, limpiar el escáner si existe
     return () => {
-      scanner.clear().catch((error) => {
-        console.error("Error clearing scanner: ", error);
-      });
+      if (scanner) {
+        scanner.clear().catch((error) => {
+          console.error("Error clearing scanner: ", error);
+        });
+      }
     };
-  }, []);
+  }, [scanner]);
+
+  const onScanSuccess = async (decodedText) => {
+    console.log(`Code matched = ${decodedText}`);
+    setResult(decodedText);
+
+
+
+    // Realiza la solicitud a la API para obtener el registro correspondiente
+    try {
+      const response = await fetch(`http://localhost:5050/records/${decodedText}`, {
+        method: "GET",
+      });
+
+      if (response.ok) {
+        const record = await response.json(); // Suponiendo que la respuesta es un objeto JSON
+
+        // Aquí se actualiza el estado con el nombre obtenido
+        if (record && record.name) {
+          console.log(`Nombre encontrado: ${record.name}`);
+          setResult(record.name); // Actualiza el estado con el nombre
+        } else {
+          console.log("Registro no encontrado o sin nombre");
+        }
+      } else {
+        console.error("Error al obtener el registro:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error en la solicitud a la API:", error);
+    }
+        // Detener el escáner después de un escaneo exitoso
+    if (scanner) {
+      await scanner.clear(); // Esperar a que se limpie el escáner
+      setIsScanning(false);
+      setScanner(null); // Limpiar la referencia al escáner
+    }
+  };
+
+  const onScanFailure = (error) => {
+    console.warn(`Code scan error = ${error}`);
+  };
+
+  const handleStartScanner = () => {
+    if (!scanner) {
+      // Inicialización del escáner
+      const newScanner = new Html5QrcodeScanner(
+        "scanner",
+        { fps: 10, qrbox: { width: 250, height: 250 } },
+        false
+      );
+      setScanner(newScanner);
+      newScanner.render(onScanSuccess, onScanFailure);
+    } else {
+      // Si ya existe un escáner, volver a renderizarlo
+      scanner.render(onScanSuccess, onScanFailure);
+    }
+    setIsScanning(true); // Marcar que el escáner está activo
+  };
+
+  const handleStopScanner = () => {
+    if (scanner) {
+      scanner.clear().then(() => {
+        setIsScanning(false); // Marcar que el escáner está detenido
+      }).catch((error) => {
+        console.error("Error stopping scanner: ", error);
+      });
+    }
+  };
 
   return (
     <div>
-      <div id="scanner" />
+      <div id="scanner" style={{ display: isScanning ? 'block' : 'none' }} />
+      {!isScanning ? (
+        <button onClick={handleStartScanner}>Iniciar escáner</button>
+      ) : (
+        <button onClick={handleStopScanner}>Detener escáner</button>
+      )}
       <div className="result">
         <h1>Result: {result}</h1>
       </div>
