@@ -136,9 +136,6 @@ export default function Scanner({ setEsVisibleLista }) {
       ) : (
         <button onClick={handleStopScanner}>Detener escáner</button>
       )}
-      <div className="result">
-        <h1>Result: {result}</h1>
-      </div>
       <ItemScannerModal
         isModalOpen={isModalOpen}
         result={result}
