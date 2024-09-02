@@ -103,7 +103,8 @@ export default function Scanner({ setEsVisibleLista }) {
 
   async function updateRecord(id, cantidadNueva) {
     // Calcula la nueva cantidad
-    const updatedQuantity = (products.level || 0) + cantidadNueva;
+    const updatedQuantity =
+      (parseInt(products.level) || 0) + parseInt(cantidadNueva);
 
     if (updatedQuantity < 0) return; // Evita cantidades negativas
 

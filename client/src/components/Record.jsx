@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-export default function Record() { //Record() {
+export default function Record() {
+  //Record() {
   const [form, setForm] = useState({
     nombre: "",
     categoria: "",
@@ -14,7 +15,7 @@ export default function Record() { //Record() {
   useEffect(() => {
     async function fetchData() {
       const id = params.id?.toString() || undefined;
-      if(!id) return;
+      if (!id) return;
       setIsNew(false);
       const response = await fetch(
         `http://localhost:5050/records/${params.id.toString()}`
@@ -73,7 +74,7 @@ export default function Record() { //Record() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
     } catch (error) {
-      console.error('A problem occurred with your fetch operation: ', error);
+      console.error("A problem occurred with your fetch operation: ", error);
     } finally {
       setForm({ nombre: "", categoria: "", precio: "" });
       navigate("/");
@@ -83,7 +84,9 @@ export default function Record() { //Record() {
   // This following section will display the form that takes the input from the user.
   return (
     <>
-      <h3 className="text-lg font-semibold p-4">Crear/actualizar registro de producto</h3>
+      <h3 className="text-lg font-semibold p-4">
+        Crear/actualizar registro de producto
+      </h3>
       <form
         onSubmit={onSubmit}
         className="border rounded-lg overflow-hidden p-4"
@@ -94,7 +97,8 @@ export default function Record() { //Record() {
               Productos Info
             </h2>
             <p className="mt-1 text-sm leading-6 text-slate-600">
-            Esta información se mostrará públicamente, así que tenga cuidado con lo que comparte.
+              Esta información se mostrará públicamente, así que tenga cuidado
+              con lo que comparte.
             </p>
           </div>
 
@@ -135,8 +139,8 @@ export default function Record() { //Record() {
                     id="categoria"
                     className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
                     //placeholder="Developer Advocate"
-                    value={form.categoria}
-                    onChange={(e) => updateForm({ categoria: e.target.value })} 
+                    value={form.position}
+                    onChange={(e) => updateForm({ position: e.target.value })}
                   />
                 </div>
               </div>
@@ -144,7 +148,7 @@ export default function Record() { //Record() {
 
             <div className="sm:col-span-4">
               <label
-                htmlFor="precio"
+                htmlFor="level"
                 className="block text-sm font-medium leading-6 text-slate-900"
               >
                 Precio
@@ -153,19 +157,18 @@ export default function Record() { //Record() {
                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                   <input
                     type="text"
-                    name="precio"
-                    id="precio"
+                    name="level"
+                    id="level"
                     className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
                     //placeholder="Developer Advocate"
-                    value={form.precio}
-                    onChange={(e) => updateForm({ precio: e.target.value })} 
+                    value={form.level}
+                    onChange={(e) => updateForm({ level: e.target.value })}
                   />
                 </div>
               </div>
             </div>
-             
 
-          {/*<div>
+            {/*<div>
               <fieldset className="mt-4">
                 <legend className="sr-only">Position Options</legend>
                 <div className="space-y-4 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
