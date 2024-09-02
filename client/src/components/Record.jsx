@@ -76,7 +76,7 @@ export default function Record() {
     } catch (error) {
       console.error("A problem occurred with your fetch operation: ", error);
     } finally {
-      setForm({ name: "", position: "", level: "" });
+      setForm({ nombre: "", categoria: "", precio: "" });
       navigate("/");
     }
   }
@@ -105,7 +105,7 @@ export default function Record() {
           <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 ">
             <div className="sm:col-span-4">
               <label
-                htmlFor="name"
+                htmlFor="nombre"
                 className="block text-sm font-medium leading-6 text-slate-900"
               >
                 Nombre
@@ -114,19 +114,19 @@ export default function Record() {
                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                   <input
                     type="text"
-                    name="name"
-                    id="name"
+                    name="nombre"
+                    id="nombre"
                     className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
                     //placeholder="First Last"
-                    value={form.name}
-                    onChange={(e) => updateForm({ name: e.target.value })}
+                    value={form.nombre}
+                    onChange={(e) => updateForm({ nombre: e.target.value })}
                   />
                 </div>
               </div>
             </div>
             <div className="sm:col-span-4">
               <label
-                htmlFor="position"
+                htmlFor="categoria"
                 className="block text-sm font-medium leading-6 text-slate-900"
               >
                 Categoria
@@ -135,8 +135,8 @@ export default function Record() {
                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-slate-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                   <input
                     type="text"
-                    name="position"
-                    id="position"
+                    name="categoria"
+                    id="categoria"
                     className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm sm:leading-6"
                     //placeholder="Developer Advocate"
                     value={form.position}
