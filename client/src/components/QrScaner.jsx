@@ -37,9 +37,9 @@ export default function Scanner({ setEsVisibleLista }) {
         const record = await response.json(); // Suponiendo que la respuesta es un objeto JSON
 
         // Aquí se actualiza el estado con el nombre obtenido
-        if (record && record.name) {
-          console.log(`Nombre encontrado: ${record.name}`);
-          setResult(record.name); // Actualiza el estado con el nombre
+        if (record && record.nombre) {
+          console.log(`Nombre encontrado: ${record.nombre}`);
+          setResult(record.nombre); // Actualiza el estado con el nombre
           setProductos(record);
         } else {
           console.log("Registro no encontrado o sin nombre");
@@ -104,14 +104,14 @@ export default function Scanner({ setEsVisibleLista }) {
   async function updateRecord(id, cantidadNueva) {
     // Calcula la nueva cantidad
     const updatedQuantity =
-      (parseInt(products.level) || 0) + parseInt(cantidadNueva);
+      (parseInt(products.precio) || 0) + parseInt(cantidadNueva);
 
     if (updatedQuantity < 0) return; // Evita cantidades negativas
 
     const updatedData = {
-      name: products.name,
-      position: products.position,
-      level: updatedQuantity,
+      nombre: products.nombre,
+      categoria: products.categoria,
+      precio: updatedQuantity,
     };
 
     await fetch(`http://localhost:5050/records/${products._id}`, {
@@ -125,7 +125,7 @@ export default function Scanner({ setEsVisibleLista }) {
     // Actualiza el estado con la nueva cantidad
     setProductos((prevProduct) => ({
       ...prevProduct,
-      level: updatedQuantity,
+      precio: updatedQuantity,
     }));
   }
 
