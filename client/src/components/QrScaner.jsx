@@ -139,7 +139,6 @@ export default function Scanner({ setEsVisibleLista }) {
       )}
       <ItemScannerModal
         isModalOpen={isModalOpen}
-        result={result}
         products={products}
         updateRecord={updateRecord}
         handleCloseModal={handleCloseModal}
