@@ -7,4 +7,5 @@
 
 ## Ejecución
 Ejecutar ``` npm install ``` (Solo la primera vez)
+  
 Luego ``` npm run dev ``` (Esto establecera la conexion con la BBDD y con la API y ejecutara la página web)
