@@ -1,3 +1,4 @@
+import solicitarStock from "./solicitarStock";
 const URL_BASE = "http://localhost:5050/records";
 
 export async function agregarStock(id, cantidadNueva) {
@@ -29,5 +30,7 @@ export async function quitarStock(id, cantidadNueva) {
     throw new Error("Error al quitar stock");
   }
 
-  return await response.json();
+  response.json().then(({ stock, puntoReorden }) => {
+    stock <= puntoReorden ? solicitarStock(id) : console.log(false);
+  });
 }

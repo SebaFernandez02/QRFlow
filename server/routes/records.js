@@ -128,9 +128,10 @@ router.patch("/remove-stock/:id", async (req, res) => {
     }
     */
 
-    res
-      .status(200)
-      .send({ message: "Stock reducido con exito", stock: stockActualizado });
+    res.status(200).send({
+      stock: stockActualizado,
+      puntoReorden: producto.stockMin,
+    });
   } catch (err) {
     console.error(err);
     res.status(500).send("Error reduciendo el stock");
