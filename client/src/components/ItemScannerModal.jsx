@@ -114,7 +114,7 @@ export default function ItemScannerModal({
           <strong>Categoria</strong>: {products.categoria}
         </p>
         <p>
-          <strong>Precio</strong>: {products.precio}
+          <strong>Cantidad</strong>: {products.cantidad}
         </p>
 
         {/* Mostrar opciones iniciales o la sección de confirmación */}

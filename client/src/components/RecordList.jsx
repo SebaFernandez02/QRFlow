@@ -14,6 +14,9 @@ const Record = (props) => (
       {props.record.precio}
     </td>
     <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
+      {props.record.cantidad}
+    </td>
+    <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
       {props.record.stockMin}
     </td>
     <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
@@ -127,6 +130,9 @@ export default function RecordList() {
                 </th>
                 <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0">
                   Precio
+                </th>
+                <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0">
+                  Cantidad
                 </th>
                 <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0">
                   Stock Minimo
