@@ -6,18 +6,6 @@
 - server es la aplicación que contiene la API (backend)
 
 ## Ejecución
-Ejecutar client:
-```
-cd client
-npm run dev
-```
-
-Ejecutar server:
-```
-cd server
-node --env-file=config.env server
-```
-si falla la ejecucion del server:
-```
-npm install express
-```
+Ejecutar ``` npm install ``` (Solo la primera vez)
+  
+Luego ``` npm run dev ``` (Esto establecera la conexion con la BBDD y con la API y ejecutara la página web)

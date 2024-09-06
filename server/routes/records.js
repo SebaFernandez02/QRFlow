@@ -35,6 +35,7 @@ router.post("/", async (req, res) => {
       nombre: req.body.nombre,
       categoria: req.body.categoria,
       precio: req.body.precio,
+      cantidad: req.body.cantidad,
       stockMin: req.body.stockMin,
       precioMax: req.body.precioMax,
       proveedor: req.body.proveedor,
@@ -57,6 +58,7 @@ router.patch("/:id", async (req, res) => {
         nombre: req.body.nombre,
         categoria: req.body.categoria,
         precio: req.body.precio,
+        cantidad: req.body.cantidad,
         stockMin: req.body.stockMin,
         precioMax: req.body.precioMax,
         proveedor: req.body.proveedor,
@@ -76,7 +78,7 @@ router.patch("/:id", async (req, res) => {
 router.patch("/add-stock/:id", async (req, res) => {
   try {
     const query = { _id: new ObjectId(req.params.id) };
-    const cantidad = req.body.precio;
+    const cantidad = req.body.cantidad;
 
     const collection = await db.collection("records");
     const producto = await collection.findOne(query);
@@ -85,9 +87,9 @@ router.patch("/add-stock/:id", async (req, res) => {
       return res.status(404).send("Producto no encontrado");
     }
 
-    const stockActualizado = parseInt(producto.precio) + parseInt(cantidad);
+    const stockActualizado = parseInt(producto.cantidad) + parseInt(cantidad);
 
-    await collection.updateOne(query, { $set: { precio: stockActualizado } });
+    await collection.updateOne(query, { $set: { cantidad: stockActualizado } });
 
     res.status(200).send({
       message: "Stock agregado correctamente",
@@ -103,7 +105,7 @@ router.patch("/add-stock/:id", async (req, res) => {
 router.patch("/remove-stock/:id", async (req, res) => {
   try {
     const query = { _id: new ObjectId(req.params.id) };
-    const cantidad = req.body.precio;
+    const cantidad = req.body.cantidad;
 
     const collection = await db.collection("records");
     const producto = await collection.findOne(query);
@@ -112,13 +114,13 @@ router.patch("/remove-stock/:id", async (req, res) => {
       return res.status(404).send("Producto no encontrado");
     }
 
-    const stockActualizado = parseInt(producto.precio) - parseInt(cantidad);
+    const stockActualizado = parseInt(producto.cantidad) - parseInt(cantidad);
 
     if (stockActualizado < 0) {
       return res.status(400).send("El Stock no puede ser negativo");
     }
 
-    await collection.updateOne(query, { $set: { precio: stockActualizado } });
+    await collection.updateOne(query, { $set: { cantidad: stockActualizado } });
 
     /*
     if(stockActualizado <= producto.puntoDeReorden){

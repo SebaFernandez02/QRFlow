@@ -7,7 +7,7 @@ export async function agregarStock(id, cantidadNueva) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ precio: cantidadNueva }),
+    body: JSON.stringify({ cantidad: cantidadNueva }),
   });
 
   if (!response.ok) {
@@ -23,7 +23,7 @@ export async function quitarStock(id, cantidadNueva) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ precio: cantidadNueva }),
+    body: JSON.stringify({ cantidad: cantidadNueva }),
   });
 
   if (!response.ok) {
