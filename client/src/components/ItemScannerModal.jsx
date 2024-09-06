@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { agregarStock, quitarStock } from "../services/manejoStock";
 
 // Componente para los botones iniciales de agregar y eliminar
 function BotonesPrincipales({ setAccion, handleCloseModal }) {
@@ -76,22 +77,28 @@ function IngresoDeCantidades({
 export default function ItemScannerModal({
   isModalOpen,
   products,
-  updateRecord,
   handleCloseModal,
 }) {
   const [cantidad, setCantidad] = useState(1); // Almacena la cantidad
   const [accion, setAccion] = useState(""); // Almacena la acción seleccionada (agregar o eliminar)
 
   // Manejar el botón de confirmación
-  const handleConfirm = () => {
-    if (accion === "agregar") {
-      updateRecord(products._id, cantidad); // Agregar la cantidad
-    } else if (accion === "eliminar") {
-      updateRecord(products._id, -cantidad); // Eliminar la cantidad
+  const handleConfirm = async () => {
+    if (cantidad < 0) return;
+
+    try {
+      if (accion === "agregar") {
+        await agregarStock(products._id, cantidad); // Agregar la cantidad
+      } else if (accion === "eliminar") {
+        await quitarStock(products._id, cantidad); // Eliminar la cantidad
+      }
+
+      setCantidad(1);
+      setAccion("");
+      handleCloseModal(); // Cerrar el modal después de confirmar
+    } catch (err) {
+      console.error("Error al actualizar el stock:", err);
     }
-    setCantidad(1);
-    setAccion("");
-    handleCloseModal(); // Cerrar el modal después de confirmar
   };
 
   if (!isModalOpen) return null; // No renderizar nada si el modal no está abierto

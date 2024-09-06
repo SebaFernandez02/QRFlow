@@ -101,34 +101,6 @@ export default function Scanner({ setEsVisibleLista }) {
     setEsVisibleLista(true);
   };
 
-  async function updateRecord(id, cantidadNueva) {
-    // Calcula la nueva cantidad
-    const updatedQuantity =
-      (parseInt(products.precio) || 0) + parseInt(cantidadNueva);
-
-    if (updatedQuantity < 0) return; // Evita cantidades negativas
-
-    const updatedData = {
-      nombre: products.nombre,
-      categoria: products.categoria,
-      precio: updatedQuantity,
-    };
-
-    await fetch(`http://localhost:5050/records/${products._id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedData),
-    });
-
-    // Actualiza el estado con la nueva cantidad
-    setProductos((prevProduct) => ({
-      ...prevProduct,
-      precio: updatedQuantity,
-    }));
-  }
-
   return (
     <div>
       <div id="scanner" style={{ display: isScanning ? "block" : "none" }} />
@@ -140,7 +112,6 @@ export default function Scanner({ setEsVisibleLista }) {
       <ItemScannerModal
         isModalOpen={isModalOpen}
         products={products}
-        updateRecord={updateRecord}
         handleCloseModal={handleCloseModal}
       />
     </div>

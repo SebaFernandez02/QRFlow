@@ -66,6 +66,69 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
+//Ruta para agregar stock de un producto segun el ID
+router.patch("/add-stock/:id", async (req, res) => {
+  try {
+    const query = { _id: new ObjectId(req.params.id) };
+    const cantidad = req.body.precio;
+
+    const collection = await db.collection("records");
+    const producto = await collection.findOne(query);
+
+    if (!producto) {
+      return res.status(404).send("Producto no encontrado");
+    }
+
+    const stockActualizado = parseInt(producto.precio) + parseInt(cantidad);
+
+    await collection.updateOne(query, { $set: { precio: stockActualizado } });
+
+    res.status(200).send({
+      message: "Stock agregado correctamente",
+      stock: stockActualizado,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error agregando el stock");
+  }
+});
+
+//Ruta para reducir el stock de un producto segun el ID
+router.patch("/remove-stock/:id", async (req, res) => {
+  try {
+    const query = { _id: new ObjectId(req.params.id) };
+    const cantidad = req.body.precio;
+
+    const collection = await db.collection("records");
+    const producto = await collection.findOne(query);
+
+    if (!producto) {
+      return res.status(404).send("Producto no encontrado");
+    }
+
+    const stockActualizado = parseInt(producto.precio) - parseInt(cantidad);
+
+    if (stockActualizado < 0) {
+      return res.status(400).send("El Stock no puede ser negativo");
+    }
+
+    await collection.updateOne(query, { $set: { precio: stockActualizado } });
+
+    /*
+    if(stockActualizado <= producto.puntoDeReorden){
+      //Llamar a api de proovedor, etc
+    }
+    */
+
+    res
+      .status(200)
+      .send({ message: "Stock reducido con exito", stock: stockActualizado });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error reduciendo el stock");
+  }
+});
+
 // This section will help you delete a record
 router.delete("/:id", async (req, res) => {
   try {
