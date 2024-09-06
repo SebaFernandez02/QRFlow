@@ -35,6 +35,9 @@ router.post("/", async (req, res) => {
       nombre: req.body.nombre,
       categoria: req.body.categoria,
       precio: req.body.precio,
+      stockMin: req.body.stockMin,
+      precioMax: req.body.precioMax,
+      proveedor: req.body.proveedor,
     };
     let collection = await db.collection("records");
     let result = await collection.insertOne(newDocument);
