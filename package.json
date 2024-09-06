@@ -1,5 +1,11 @@
 {
   "dependencies": {
     "html5-qrcode": "^2.3.8"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix client\" \"npm run server --prefix server\" \"npm run proveedor --prefix server\""
   }
 }
