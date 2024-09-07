@@ -1,3 +1,5 @@
+import { enviarOrdenDeCompra } from "./enviarOrdenDeCompra";
+
 const URL_PROVEEDOR = "http://localhost:5050/proveedor";
 const URL_BASE = "http://localhost:5050/records";
 
@@ -26,10 +28,9 @@ export default async function solicitarStock(id) {
   const data = await response.json();
 
   const precioProveedor = data.precio;
-  console.log(
-    "El precio del proveedor es: " +
-      (precioProveedor < producto.precioMax ? "Bueno" : "Malo")
-  );
+  precioProveedor < producto.precioMax
+    ? enviarOrdenDeCompra(producto, precioProveedor)
+    : console.log("El precio del proveedor es malo: " + precioProveedor);
 }
 
 // Obtener el producto por ID desde el servidor
