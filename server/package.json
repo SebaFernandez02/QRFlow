@@ -6,8 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vite",
-    "server": "node --env-file=config.env server",
-    "proveedor": "node routes/proveedor.js"
+    "server": "node --env-file=config.env server"
   },
   "keywords": [],
   "author": "",

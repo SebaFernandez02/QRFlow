@@ -6,6 +6,6 @@
     "concurrently": "^8.2.2"
   },
   "scripts": {
-    "dev": "concurrently \"npm run dev --prefix client\" \"npm run server --prefix server\" \"npm run proveedor --prefix server\""
+    "dev": "concurrently \"npm run dev --prefix client\" \"npm run server --prefix server\""
   }
 }

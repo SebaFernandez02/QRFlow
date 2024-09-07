@@ -1,4 +1,4 @@
-const URL_PROVEEDOR = "http://localhost:5001/api/proveedor";
+const URL_PROVEEDOR = "http://localhost:5050/proveedor";
 const URL_BASE = "http://localhost:5050/records";
 
 export default async function solicitarStock(id) {

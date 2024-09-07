@@ -1,14 +1,8 @@
-import cors from "cors";
 import express from "express";
 
-const app = express();
-const PORT = process.env.PORT || 5001;
-
-app.use(cors());
-app.use(express.json());
-
+const router = express.Router();
 // Simular respuesta de API de proveedor con costos aleatorios
-app.post("/api/proveedor", (req, res) => {
+router.post("/", (req, res) => {
   const { productoId, oferta } = req.body;
 
   if (!productoId || !oferta) {
@@ -27,6 +21,4 @@ app.post("/api/proveedor", (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`API de proveedor escuchando en el puerto ${PORT}`);
-});
+export default router;
