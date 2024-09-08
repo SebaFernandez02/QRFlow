@@ -7,6 +7,6 @@
     "concurrently": "^8.2.2"
   },
   "scripts": {
-    "dev": "concurrently \"npm run dev --prefix client\" \"npm run server --prefix server\""
+    "dev": "concurrently \"npm run dev --prefix client\" \"npm install --prefix server\" \"npm run server --prefix server\""
   }
 }
