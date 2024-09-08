@@ -1,4 +1,7 @@
-const URL_EMAIL = "http://localhost:5050/email";
+const VITE_URL_BACKEND =
+  import.meta.env.VITE_URL_BACKEND || "http://localhost:5050";
+
+const URL_EMAIL = `${VITE_URL_BACKEND}/email`;
 
 export async function enviarOrdenDeCompra(producto, precioProveedor) {
   const destinatario = producto.proveedor;

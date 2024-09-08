@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import QRCodeModal from "./QRCodeModal";
 
+const VITE_URL_BACKEND =
+  import.meta.env.VITE_URL_BACKEND || "http://localhost:5050";
+
 const Record = (props) => (
   <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
     <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
@@ -65,7 +68,7 @@ export default function RecordList() {
   // This method fetches the records from the database.
   useEffect(() => {
     async function getRecords() {
-      const response = await fetch(`http://localhost:5050/records/`);
+      const response = await fetch(`${VITE_URL_BACKEND}/records/`);
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         console.error(message);
@@ -80,7 +83,7 @@ export default function RecordList() {
 
   // This method will delete a record
   async function deleteRecord(id) {
-    await fetch(`http://localhost:5050/records/${id}`, {
+    await fetch(`${VITE_URL_BACKEND}/records/${id}`, {
       method: "DELETE",
     });
     const newRecords = records.filter((el) => el._id !== id);

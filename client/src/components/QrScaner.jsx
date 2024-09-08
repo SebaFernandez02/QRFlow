@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import ItemScannerModal from "./ItemScannerModal";
 
+const VITE_URL_BACKEND =
+  import.meta.env.VITE_URL_BACKEND || "http://localhost:5050";
+
 export default function Scanner({ setEsVisibleLista }) {
   const [result, setResult] = useState("");
   const [scanner, setScanner] = useState(null);
@@ -27,7 +30,7 @@ export default function Scanner({ setEsVisibleLista }) {
     // Realiza la solicitud a la API para obtener el registro correspondiente
     try {
       const response = await fetch(
-        `http://localhost:5050/records/${decodedText}`,
+        `${VITE_URL_BACKEND}/records/${decodedText}`,
         {
           method: "GET",
         }
