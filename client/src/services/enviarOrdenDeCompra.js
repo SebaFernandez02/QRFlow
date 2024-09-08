@@ -11,10 +11,7 @@ export async function enviarOrdenDeCompra(producto, precioProveedor) {
   const contenido = `Proveedor: ${destinatario}
   Producto: ${producto.nombre}
   Cantidad: ${cantidadComprar}
-  Total: $${(cantidadComprar * precioProveedor).toLocaleString("es-ES", {
-    style: "currency",
-    currency: "EUR",
-  })}
+  Total: $ ${(cantidadComprar * precioProveedor).toLocaleString("es-ES")}
   Fecha: ${new Date().toLocaleDateString()}`;
 
   const response = await fetch(`${URL_EMAIL}`, {
