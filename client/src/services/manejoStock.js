@@ -1,5 +1,9 @@
 import solicitarStock from "./solicitarStock";
-const URL_BASE = "http://localhost:5050/records";
+
+const VITE_URL_BACKEND =
+  import.meta.env.VITE_URL_BACKEND || "http://localhost:5050";
+
+const URL_BASE = `${VITE_URL_BACKEND}/records`;
 
 export async function agregarStock(id, cantidadNueva) {
   const response = await fetch(`${URL_BASE}/add-stock/${id}`, {

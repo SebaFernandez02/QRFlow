@@ -1,7 +1,10 @@
 import { enviarOrdenDeCompra } from "./enviarOrdenDeCompra";
 
-const URL_PROVEEDOR = "http://localhost:5050/proveedor";
-const URL_BASE = "http://localhost:5050/records";
+const VITE_URL_BACKEND =
+  import.meta.env.VITE_URL_BACKEND || "http://localhost:5050";
+
+const URL_PROVEEDOR = `${VITE_URL_BACKEND}/proveedor`;
+const URL_BASE = `${VITE_URL_BACKEND}/records`;
 
 export default async function solicitarStock(id) {
   const producto = await obtenerProducto(id);
