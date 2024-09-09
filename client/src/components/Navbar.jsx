@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import logo from "../assets/codigoQRFlow.png";
+import logo from "../assets/QRFlow.png";
 import { Plus } from "lucide-react";
 
 export default function Navbar() {
