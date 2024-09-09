@@ -6,8 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vite",
-    "server": "node --env-file=config.env server",
-    "proveedor": "node routes/proveedor.js"
+    "server": "node --env-file=config.env server"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +15,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
-    "mongodb": "^6.8.0"
+    "mongodb": "^6.8.0",
+    "nodemailer": "^6.9.15"
   },
   "devDependencies": {
     "html5-qrcode": "^2.3.8"
