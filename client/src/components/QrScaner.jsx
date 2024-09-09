@@ -108,9 +108,19 @@ export default function Scanner({ setEsVisibleLista }) {
     <div>
       <div id="scanner" style={{ display: isScanning ? "block" : "none" }} />
       {!isScanning ? (
-        <button onClick={handleStartScanner}>Iniciar escáner</button>
+        <button
+          className="w-full text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700"
+          onClick={handleStartScanner}
+        >
+          Iniciar escáner
+        </button>
       ) : (
-        <button onClick={handleStopScanner}>Detener escáner</button>
+        <button
+          className="w-full mt-4 text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700"
+          onClick={handleStopScanner}
+        >
+          Detener escáner
+        </button>
       )}
       <ItemScannerModal
         isModalOpen={isModalOpen}

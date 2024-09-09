@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
-import logo from '../assets/codigoQRFlow.png';
+import logo from "../assets/codigoQRFlow.png";
+import { Plus } from "lucide-react";
 
 export default function Navbar() {
   return (
@@ -10,8 +11,12 @@ export default function Navbar() {
           <span className="text-lg font-semibold">QRFlow</span>
         </NavLink>
 
-        <NavLink className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3" to="/create">
-          Cargar producto
+        <NavLink
+          className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3"
+          to="/create"
+        >
+          <Plus size={15} className="mr-2" />
+          <span>Cargar producto</span>
         </NavLink>
       </nav>
     </div>

@@ -1,64 +1,76 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import QRCodeModal from "./QRCodeModal";
+import { Pencil, QrCode, Trash2 } from "lucide-react";
 
 const VITE_URL_BACKEND =
   import.meta.env.VITE_URL_BACKEND || "http://localhost:5050";
 
-const Record = (props) => (
-  <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-    <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
-      {props.record.nombre}
-    </td>
-    <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
-      {props.record.categoria}
-    </td>
-    <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
-      {props.record.precio}
-    </td>
-    <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
-      {props.record.cantidad}
-    </td>
-    <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
-      {props.record.stockMin}
-    </td>
-    <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
-      {props.record.precioMax}
-    </td>
-    <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
-      {props.record.proveedor}
-    </td>
-    <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
-      <div className="flex gap-2">
-        <Link
-          className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3"
-          to={`/edit/${props.record._id}`}
-        >
-          Editar
-        </Link>
-        <button
-          className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 hover:text-accent-foreground h-9 rounded-md px-3"
-          color="red"
-          type="button"
-          onClick={() => {
-            props.deleteRecord(props.record._id);
-          }}
-        >
-          Borrar
-        </button>
-        <button
-          className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 hover:text-accent-foreground h-9 rounded-md px-3"
-          type="button"
-          onClick={() => {
-            props.onShowQRModal(props.record._id);
-          }}
-        >
-          QR
-        </button>
-      </div>
-    </td>
-  </tr>
-);
+const Record = (props) => {
+  let esPar = props.index % 2 === 0;
+  return (
+    <>
+      <tr
+        className={
+          esPar
+            ? "bg-white border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+            : "bg-[#02061705] border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+        }
+      >
+        <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
+          {props.record.nombre}
+        </td>
+        <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
+          {props.record.categoria}
+        </td>
+        <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
+          {props.record.precio}
+        </td>
+        <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
+          {props.record.cantidad}
+        </td>
+        <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
+          {props.record.stockMin}
+        </td>
+        <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
+          {props.record.precioMax}
+        </td>
+        <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
+          {props.record.proveedor}
+        </td>
+        <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
+          <div className="flex gap-2">
+            <Link
+              className="text-indigo-600 inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3"
+              to={`/edit/${props.record._id}`}
+            >
+              <Pencil size={20} />
+            </Link>
+            <button
+              className="text-red-600 inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 hover:text-accent-foreground h-9 rounded-md px-3"
+              color="red"
+              type="button"
+              onClick={() => {
+                props.deleteRecord(props.record._id);
+              }}
+            >
+              <Trash2 size={20} />
+            </button>
+            <button
+              className="text-green-600 inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 hover:text-accent-foreground h-9 rounded-md px-3"
+              type="button"
+              onClick={() => {
+                props.onShowQRModal(props.record._id);
+              }}
+            >
+              <QrCode size={20} />
+            </button>
+          </div>
+        </td>
+      </tr>
+    </>
+  );
+};
 
 export default function RecordList() {
   const [records, setRecords] = useState([]);
@@ -104,10 +116,11 @@ export default function RecordList() {
 
   // This method will map out the records on the table
   function recordList() {
-    return records.map((record) => {
+    return records.map((record, index) => {
       return (
         <Record
           record={record}
+          index={index}
           deleteRecord={() => deleteRecord(record._id)}
           onShowQRModal={handleShowQRModal}
           key={record._id}
